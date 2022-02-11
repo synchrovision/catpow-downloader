@@ -5,14 +5,7 @@ abstract class Downloader{
 	static $interval=1000,$protocol='ftp';
 	protected $settings,$files,$pointer=[0],$cache=[],$status,$con;
 	const CONFIRM=1,DONE=2,ERROR=4;
-	protected function __construct(){
-		$prot=strtoupper(static::$protocol).'_';
-		$settings=[];
-		foreach(['host','port','user','password','root_path','pem'] as $key){
-			if(isset($_ENV[$prot.strtoupper($key)])){
-				$settings[$key]=$_ENV[$prot.strtoupper($key)];
-			}
-		}
+	protected function __construct($settings){
 		if(!isset($settings['port'])){$settings['port']=(static::$protocol==='sftp')?22:21;}
 		assert(isset($settings['host']),'require host');
 		assert(isset($settings['user']),'require user');
@@ -23,9 +16,8 @@ abstract class Downloader{
 	}
 	public static function get_instance(){
 		if(!isset($_SESSION['cpdl'])){
-			$dotenv = \Dotenv\Dotenv::createImmutable(APP_PATH);
-			$dotenv->safeLoad();
-			$_SESSION['cpdl']=isset($_ENV['SFTP_HOST'])?new SFTP_Downloader():new FTP_Downloader();
+			include \APP_PATH.'/config.php';
+			$_SESSION['cpdl']=empty($settings['sftp'])?new FTP_Downloader($settings):new SFTP_Downloader($settings);
 		}
 		return $_SESSION['cpdl'];
 	}
