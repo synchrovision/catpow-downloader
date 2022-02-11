@@ -20,7 +20,7 @@
 				action:'download'
 			}).then((res)=>{
 				app.result=res.data.result;
-				if(res.data.finished){app.phase='finished';return;}
+				if(res.data.done){app.phase='finished';return;}
 				if(app.phase==='download'){downloadNextFiles(app);}
 			});
 		};
