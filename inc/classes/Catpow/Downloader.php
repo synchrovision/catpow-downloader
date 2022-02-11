@@ -17,6 +17,12 @@ abstract class Downloader{
 	public static function get_instance(){
 		if(!isset($_SESSION['cpdl'])){
 			include \APP_PATH.'/config.php';
+			if(!empty($settings['sftp']) && !file_exists(\INC_PATH.'/vendor/autoload.php')){
+				chdir(\INC_PATH);
+				exec('composer install');
+				chdir(\APP_PATH);
+				require_once(INC_PATH.'/vendor/autoload.php');
+			}
 			$_SESSION['cpdl']=empty($settings['sftp'])?new FTP_Downloader($settings):new SFTP_Downloader($settings);
 		}
 		return $_SESSION['cpdl'];

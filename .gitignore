@@ -4,3 +4,6 @@
 .LSOverride
 _notes
 node_modules
+/config.php
+/inc/composer.lock
+/inc/vendor

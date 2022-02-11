@@ -12,7 +12,7 @@ define('APP_URL',BASE_URL.'/'.APP_NAME);
 define('INC_PATH',__DIR__);
 chdir(ABSPATH);
 
-require_once INC_PATH.'/vendor/autoload.php';
+if(file_exists(INC_PATH.'/vendor/autoload.php')){require_once INC_PATH.'/vendor/autoload.php';}
 spl_autoload_register(function($class){
 	if(file_exists($f=INC_PATH.'/classes/'.str_replace('\\','/',$class).'.php')){include($f);}
 });
