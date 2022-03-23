@@ -54,18 +54,16 @@
 </script>
 </head>
 <body>
-<div class="container-fluid" x-data="app()">
-	<div class="row row-lg">
-		<div class="col-xl-6 p-3">
-			<div class="text-center">
-				<button type="button" class="btn btn-secondary" x-show="phase!='download'" @click="resetDownload()">Reset</button>
-				<button type="button" class="btn btn-primary" x-show="phase=='confirm'" @click="startDownload()">Download</button>
-				<button type="button" class="btn btn-secondary" x-show="phase=='download'" @click="stopDownload()">Stop</button>
-				<button type="button" class="btn btn-primary" x-show="phase=='stop'" @click="startDownload()">Restart</button>
-			</div>
+<div class="container-fluid p-0" x-data="app()">
+	<div class="bg-white shadow p-3 position-sticky top-0">
+		<div class="text-center">
+			<button type="button" class="btn btn-secondary" x-show="phase!='download'" @click="resetDownload()">Reset</button>
+			<button type="button" class="btn btn-primary" x-show="phase=='confirm'" @click="startDownload()">Download</button>
+			<button type="button" class="btn btn-secondary" x-show="phase=='download'" @click="stopDownload()">Stop</button>
+			<button type="button" class="btn btn-primary" x-show="phase=='stop'" @click="startDownload()">Restart</button>
 		</div>
-		<div class="col-xl-6 text-white bg-dark fs-6 min-vh-100" x-html="result"></div>
 	</div>
+	<div class="text-white bg-dark p-3 fs-6 min-vh-100" x-html="result"></div>
 </div>
 </body>
 </html>
